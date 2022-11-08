@@ -1,9 +1,9 @@
-import axiosConfig from './axiosConfig';
+// import {apiConfig} from './apiConfig';
 
 const api = {
-  listar: function () {
-    return axiosConfig.get('experience');
-  },
+  // listar: function () {
+  //   return apiConfig.get('experience');
+  // },
   // salvar: function (form) {
   //   if (form.id) {
   //     return axiosConfig.put('experience');

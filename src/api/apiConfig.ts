@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-export default axios.create({
+export const apiConfig = {
   baseURL: 'https://kyoywntqsmqhwsxkrktm.supabase.co/rest/v1',
   headers: {
     apikey:
@@ -8,4 +6,4 @@ export default axios.create({
     Authorization:
       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5b3l3bnRxc21xaHdzeGtya3RtIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY2NzYwNzIxNywiZXhwIjoxOTgzMTgzMjE3fQ.eRSROClaIhmlqRETuHpGass8cpdx10FwIt5T4vNcDlY',
   },
-});
+};
