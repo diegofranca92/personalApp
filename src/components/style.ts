@@ -35,4 +35,11 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 16,
   },
+  textArea: {
+    height: 140,
+    width: '100%',
+    marginBottom: 12,
+    borderWidth: 1,
+    padding: 16,
+  },
 });

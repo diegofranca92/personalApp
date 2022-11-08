@@ -1,11 +1,18 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {ExperienceType} from '../../models/experience';
 import {styles} from '../style';
 
-interface cardProps extends ExperienceType {}
+interface cardProps extends ExperienceType {
+  onPress: () => void;
+}
 
-export function CardExperience({position, description, company}: cardProps) {
+export function CardExperience({
+  position,
+  description,
+  company,
+  onPress,
+}: cardProps) {
   return (
     <View>
       <Text style={[styles.sectionTitle]}>{position}</Text>
@@ -14,6 +21,9 @@ export function CardExperience({position, description, company}: cardProps) {
         Descrição: {'\n'}
         {description}
       </Text>
+      <TouchableOpacity onPress={onPress} style={styles.button}>
+        <Text>Editar</Text>
+      </TouchableOpacity>
     </View>
   );
 }

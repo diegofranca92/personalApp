@@ -7,7 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {styles} from './style';
 
@@ -22,11 +22,20 @@ export function Home() {
   const [company, setCompany] = React.useState('');
 
   const {navigate} = useNavigation();
+  const {params} = useRoute();
+
+  function fetchEditData(data: any) {
+    setPosition(data.position);
+    setDescription(data.description);
+    setCompany(data.company.name);
+  }
 
   const experienceData = {
     position,
     description,
-    company,
+    company: {
+      name: company,
+    },
   };
 
   async function createExperience() {
@@ -49,6 +58,12 @@ export function Home() {
     }
   }
 
+  React.useEffect(() => {
+    if (params) {
+      fetchEditData(params);
+    }
+  }, [params]);
+
   function handleSubmit() {
     createExperience();
     navigate('list');
@@ -67,14 +82,12 @@ export function Home() {
           value={position}
           placeholder="Profissão"
         />
-        <Text>{position}</Text>
         <TextInput
           style={styles.input}
           onChangeText={setCompany}
           value={company}
           placeholder="Empresa"
         />
-        <Text>{company}</Text>
         {/* <TextInput
           style={styles.input}
           onChangeText={onChangeText}
@@ -82,12 +95,14 @@ export function Home() {
           placeholder="Periodo"
         /> */}
         <TextInput
-          style={styles.input}
+          style={styles.textArea}
           onChangeText={setDescription}
           value={description}
+          multiline
+          numberOfLines={4}
+          textAlignVertical="top"
           placeholder="Descrição"
         />
-        <Text>{description}</Text>
         {/* <TextInput
           style={styles.input}
           onChangeText={() => set}

@@ -10,15 +10,14 @@ import {
 import {styles} from './style';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {CardExperience} from './CardExperience';
-import {api, instance} from '../api/apiConfig';
 import {ExperienceType} from '../models/experience';
-// import {useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 export function List() {
   const isDarkMode = useColorScheme() === 'dark';
 
   const [refreshExperiences, setRefreshExperience] = React.useState(false);
-  // const {navigate} = useNavigation();
+  const {navigate} = useNavigation();
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -26,28 +25,11 @@ export function List() {
 
   // const [isLoading, setIsLoading] = React.useState(false);
 
-  // const [experienceList, setExperienceList] = React.useState<string[]>([]);
-
-  // React.useEffect(() => {
-  //   async function getExperienceList() {
-  //     try {
-  //       // setIsLoading(true);
-  //       const list = await api.listar();
-  //       // setIsLoading(false);
-  //       return list;
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   const Teste = getExperienceList();
-  //   console.log(Teste);
-  // }, []);
-
-  const [data, setData] = React.useState([]);
+  const [experienceList, setExperienceList] = React.useState<ExperienceType[]>(
+    [],
+  );
 
   async function getExperience() {
-    // const response = await api.listar();
-    // console.log(response);
     try {
       const url = 'https://kyoywntqsmqhwsxkrktm.supabase.co/rest/v1';
       const response = await fetch(`${url}/experience`, {
@@ -59,9 +41,8 @@ export function List() {
             'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5b3l3bnRxc21xaHdzeGtya3RtIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY2NzYwNzIxNywiZXhwIjoxOTgzMTgzMjE3fQ.eRSROClaIhmlqRETuHpGass8cpdx10FwIt5T4vNcDlY',
         },
       });
-      // const experiences = await api.getPosts();
       const experiences = await response.json();
-      setData(experiences);
+      setExperienceList(experiences);
     } catch (error) {
       console.warn(error);
     }
@@ -92,13 +73,16 @@ export function List() {
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <FlatList
-        data={data}
+        data={experienceList}
         style={{paddingBottom: 100}}
-        keyExtractor={({id}) => id}
         onRefresh={() => onRefresh()}
         refreshing={refreshExperiences}
         renderItem={({item}: any) => (
           <CardExperience
+            onPress={() => {
+              navigate('new', item);
+            }}
+            key={item.id}
             position={item.position}
             company={item.company.name}
             description={item.description}

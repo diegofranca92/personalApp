@@ -20,8 +20,12 @@ export function AppRoutes() {
         component={Home}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
+          tabBarIcon: ({color, focused}) => (
+            <MaterialCommunityIcons
+              name={focused ? 'home-variant' : 'home-variant-outline'}
+              color={color}
+              size={26}
+            />
           ),
         }}
       />
@@ -29,9 +33,13 @@ export function AppRoutes() {
         name="list"
         component={List}
         options={{
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
+          tabBarLabel: 'Minhas Experiências',
+          tabBarIcon: ({color, focused}) => (
+            <MaterialCommunityIcons
+              name={focused ? 'file-tree' : 'file-tree-outline'}
+              color={color}
+              size={26}
+            />
           ),
         }}
       />
