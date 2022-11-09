@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 10,
   },
   header: {
     width: '100%',

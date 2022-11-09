@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
-    marginBottom: 120,
+    marginBottom: 20,
     textAlign: 'center',
   },
   sectionDescription: {
@@ -39,6 +39,19 @@ export const styles = StyleSheet.create({
     marginBottom: 12,
     borderWidth: 1,
     padding: 16,
+  },
+  title: {
+    color: 'black',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  subtitle: {
+    color: 'black',
+    marginBottom: 40,
+  },
+  description: {
+    color: 'black',
+    marginBottom: 20,
   },
   textArea: {
     width: '100%',

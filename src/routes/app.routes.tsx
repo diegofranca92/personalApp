@@ -4,7 +4,6 @@ import React from 'react';
 import {List} from '../pages/List';
 import {Form} from '../pages/Form';
 import {Home} from '../pages/Home';
-import {Text} from 'react-native';
 import {Icon, IconButton} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 
