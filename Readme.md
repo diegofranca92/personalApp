@@ -1,3 +1,8 @@
-- capturar todas as informações para cadastro
-- modal de confirmação
-- Home com minha foto e a Bio e cargo atual
+- [ ] capturar todas as informações para cadastro
+- [ ] modal de confirmação
+- [x] Home com minha foto e a Bio e cargo atual(configurar de acordo com a Data da última experiência)
+- [ ] Splash screen com Lotie
+- [ ] Modal de Edição do Perfil
+- [ ] Upload de foto de Perfil
+- [ ] Publicação na Loja
+- [ ] Atualização na Loja
