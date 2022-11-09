@@ -4,8 +4,8 @@ export const styles = StyleSheet.create({
   pageContainer: {
     width: '100%',
     height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
     paddingHorizontal: 10,
   },
   header: {

@@ -3,8 +3,7 @@ import React from 'react';
 
 export function SkeletonCard() {
   return (
-    <Box p="4" my={4} borderColor="coolGray.600" rounded="md" borderWidth={1}>
-      {/* <Spinner size="lg" /> */}
+    <Box p="4" borderColor="coolGray.600" my={4} rounded="md" borderWidth={1}>
       <Skeleton
         w="80%"
         marginX={'auto'}
