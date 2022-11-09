@@ -21,6 +21,7 @@ export function List() {
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    padding: 10,
   };
 
   // const [isLoading, setIsLoading] = React.useState(false);
@@ -65,16 +66,9 @@ export function List() {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <View>
-        <Text style={[styles.sectionTitle]}>Configs</Text>
-      </View>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
       <FlatList
+        contentContainerStyle={{paddingBottom: 30}}
         data={experienceList}
-        style={{paddingBottom: 100}}
         onRefresh={() => onRefresh()}
         refreshing={refreshExperiences}
         renderItem={({item}: any) => (

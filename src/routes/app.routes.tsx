@@ -14,7 +14,8 @@ export function AppRoutes() {
     <Navigator
       initialRouteName="Home"
       activeColor="#f0edf6"
-      inactiveColor="#3e2465">
+      barStyle={{backgroundColor: '#2d47d8'}}
+      inactiveColor="#949494">
       <Screen
         name="new"
         component={Home}

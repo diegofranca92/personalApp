@@ -11,6 +11,11 @@ export const styles = StyleSheet.create({
     width: '100%',
     padding: 20,
   },
+  card: {
+    backgroundColor: '#4b5aaf',
+    marginVertical: 8,
+    padding: 12,
+  },
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
@@ -23,8 +28,8 @@ export const styles = StyleSheet.create({
     fontWeight: '400',
   },
   button: {
-    marginBottom: 12,
-    backgroundColor: '#841584',
+    marginVertical: 12,
+    backgroundColor: '#2d47d8',
     padding: 12,
     alignItems: 'center',
   },
@@ -36,10 +41,11 @@ export const styles = StyleSheet.create({
     padding: 16,
   },
   textArea: {
-    height: 140,
     width: '100%',
     marginBottom: 12,
     borderWidth: 1,
     padding: 16,
+    fontSize: 14,
+    color: '#FFFFFF',
   },
 });

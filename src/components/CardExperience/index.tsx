@@ -14,14 +14,17 @@ export function CardExperience({
   onPress,
 }: cardProps) {
   return (
-    <View>
+    <View style={[styles.card]}>
       <Text style={[styles.sectionTitle]}>{position}</Text>
       <Text>{company}</Text>
       <Text>
         Descrição: {'\n'}
         {description}
       </Text>
-      <TouchableOpacity onPress={onPress} style={styles.button}>
+      <TouchableOpacity
+        onPress={onPress}
+        activeOpacity={0.8}
+        style={styles.button}>
         <Text>Editar</Text>
       </TouchableOpacity>
     </View>
