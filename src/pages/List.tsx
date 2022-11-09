@@ -1,15 +1,7 @@
 import React from 'react';
-import {
-  FlatList,
-  SafeAreaView,
-  StatusBar,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-import {styles} from './style';
+import {FlatList, SafeAreaView, useColorScheme} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {CardExperience} from './CardExperience';
+import {CardExperience} from '../components/CardExperience';
 import {ExperienceType} from '../models/experience';
 import {useNavigation} from '@react-navigation/native';
 
@@ -67,7 +59,7 @@ export function List() {
   return (
     <SafeAreaView style={backgroundStyle}>
       <FlatList
-        contentContainerStyle={{paddingBottom: 30}}
+        contentContainerStyle={{paddingBottom: 60}}
         data={experienceList}
         onRefresh={() => onRefresh()}
         refreshing={refreshExperiences}

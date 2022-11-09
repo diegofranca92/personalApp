@@ -1,0 +1,3 @@
+- capturar todas as informações para cadastro
+- modal de confirmação
+- Home com minha foto e a Bio e cargo atual

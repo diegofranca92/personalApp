@@ -1,11 +1,16 @@
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import React from 'react';
-import {List} from '../components/List';
-import {Home} from '../components/Home';
+import {List} from '../pages/List';
+import {Form} from '../pages/Form';
+import {Home} from '../pages/Home';
+import {Text} from 'react-native';
+import {Icon, IconButton} from 'native-base';
+import {useNavigation} from '@react-navigation/native';
 
 export function AppRoutes() {
-  const {Screen, Navigator} = createMaterialBottomTabNavigator();
+  const {Screen, Navigator} = createBottomTabNavigator();
+  const {goBack} = useNavigation();
 
   return (
     // <SafeAreaView style={backgroundStyle}>
@@ -13,22 +18,56 @@ export function AppRoutes() {
     // </SafeAreaView>
     <Navigator
       initialRouteName="Home"
-      activeColor="#f0edf6"
-      barStyle={{backgroundColor: '#2d47d8'}}
-      inactiveColor="#949494">
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: '#f0edf6',
+        tabBarInactiveTintColor: '#949494',
+        tabBarStyle: {
+          backgroundColor: '#2d47d8',
+          height: 60,
+          borderTopWidth: 0,
+          position: 'absolute',
+          paddingBottom: 5,
+        },
+        tabBarLabelStyle: {
+          fontSize: 11,
+          fontWeight: '600',
+        },
+      }}>
       <Screen
-        name="new"
+        name="home"
         component={Home}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({color, focused}) => (
-            <MaterialCommunityIcons
+            <MCIcon
               name={focused ? 'home-variant' : 'home-variant-outline'}
               color={color}
-              size={26}
+              size={30}
             />
           ),
         }}
+      />
+      <Screen
+        name="new"
+        options={{
+          headerShown: true,
+          tabBarButton: () => null,
+          headerStyle: {
+            backgroundColor: '#333333',
+          },
+          headerTintColor: 'white',
+          headerTitle: 'Novo Cadastro',
+          headerLeft: () => (
+            <IconButton
+              onPress={goBack}
+              icon={
+                <Icon as={MCIcon} name="arrow-left" color={'white'} size="lg" />
+              }
+            />
+          ),
+        }}
+        component={Form}
       />
       <Screen
         name="list"
@@ -36,10 +75,10 @@ export function AppRoutes() {
         options={{
           tabBarLabel: 'Minhas Experiências',
           tabBarIcon: ({color, focused}) => (
-            <MaterialCommunityIcons
+            <MCIcon
               name={focused ? 'file-tree' : 'file-tree-outline'}
               color={color}
-              size={26}
+              size={30}
             />
           ),
         }}
