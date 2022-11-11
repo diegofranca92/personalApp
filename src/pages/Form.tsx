@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, Text, useColorScheme, View, TextInput} from 'react-native';
+import {ScrollView, Text, View, TextInput} from 'react-native';
 import {
   TextArea,
   useToast,
@@ -12,16 +12,17 @@ import {
   Icon,
 } from 'native-base';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+// import {Colors} from 'react-native/Libraries/NewAppScreen';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styles} from './style';
+import api from '../api/api';
 
 export function Form() {
-  const isDarkMode = useColorScheme() === 'dark';
+  // const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  // const backgroundStyle = {
+  //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  // };
   const [position, setPosition] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [company, setCompany] = React.useState('');
@@ -32,7 +33,7 @@ export function Form() {
   const toast = useToast();
 
   const [service, setService] = React.useState('');
-
+  const {id}: any = params;
   function fetchEditData(data: any) {
     setPosition(data.position);
     setDescription(data.description);
@@ -40,6 +41,7 @@ export function Form() {
   }
 
   const experienceData = {
+    id: id,
     position,
     description,
     company: {
@@ -49,19 +51,7 @@ export function Form() {
 
   async function createExperience() {
     try {
-      const url = 'https://kyoywntqsmqhwsxkrktm.supabase.co/rest/v1';
-      await fetch(`${url}/experience`, {
-        method: 'POST',
-        headers: {
-          apikey:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5b3l3bnRxc21xaHdzeGtya3RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Njc2MDcyMTcsImV4cCI6MTk4MzE4MzIxN30.vlQ2lfa6Q9C7UrzRuhTfvLHiIy0UQ0zIQ-P2u5g1FIY',
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5b3l3bnRxc21xaHdzeGtya3RtIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY2NzYwNzIxNywiZXhwIjoxOTgzMTgzMjE3fQ.eRSROClaIhmlqRETuHpGass8cpdx10FwIt5T4vNcDlY',
-          'Content-Type': 'application/json',
-          Prefer: 'return=representation',
-        },
-        body: JSON.stringify(experienceData),
-      });
+      await api.saveExperience(experienceData);
     } catch (error) {
       console.warn(error);
     }
@@ -95,7 +85,6 @@ export function Form() {
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
-      style={backgroundStyle}
       contentContainerStyle={
         (styles.pageContainer, {padding: 12, paddingBottom: 120})
       }>

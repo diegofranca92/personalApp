@@ -40,6 +40,7 @@ export const styles = StyleSheet.create({
     marginBottom: 12,
     borderWidth: 1,
     padding: 16,
+    color: '#000',
   },
   textArea: {
     width: '100%',
@@ -47,6 +48,5 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 16,
     fontSize: 14,
-    color: '#FFFFFF',
   },
 });
