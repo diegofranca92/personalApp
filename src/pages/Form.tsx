@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, Text, View, TextInput} from 'react-native';
+import {ScrollView, Text, View, TextInput, useColorScheme} from 'react-native';
 import {
   TextArea,
   useToast,
@@ -10,22 +10,40 @@ import {
   Container,
   Button,
   Icon,
+  Switch,
 } from 'native-base';
 import {useNavigation, useRoute} from '@react-navigation/native';
-// import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styles} from './style';
 import api from '../api/api';
+import {InputForm} from '../components/InputForm';
 
 export function Form() {
-  // const isDarkMode = useColorScheme() === 'dark';
+  const isDarkMode = useColorScheme() === 'dark';
 
-  // const backgroundStyle = {
-  //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  // };
+  const backgroundStyle = {
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  };
   const [position, setPosition] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [company, setCompany] = React.useState('');
+  const [contrat, setContrat] = React.useState('');
+  const [moment, setMoment] = React.useState(false);
+
+  const [duration, setDuration] = React.useState({
+    begin: {
+      ano: '',
+      mes: '',
+    },
+    finish: {
+      ano: '',
+      mes: '',
+      moment,
+    },
+  });
+
+  const [skills, setSkills] = React.useState(['']);
   const [text, setText] = React.useState('');
 
   const {navigate, goBack} = useNavigation();
@@ -33,12 +51,36 @@ export function Form() {
   const toast = useToast();
 
   const [service, setService] = React.useState('');
-  const {id}: any = params;
+  const {id}: any = params || '';
   function fetchEditData(data: any) {
     setPosition(data.position);
     setDescription(data.description);
     setCompany(data.company.name);
   }
+
+  const years = [
+    '2015',
+    '2016',
+    '2017',
+    '2018',
+    '2019',
+    '2020',
+    '2021',
+    '2022',
+  ];
+  const months = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro',
+  ];
 
   const experienceData = {
     id: id,
@@ -84,37 +126,22 @@ export function Form() {
 
   return (
     <ScrollView
+      style={backgroundStyle}
       contentInsetAdjustmentBehavior="automatic"
       contentContainerStyle={
         (styles.pageContainer, {padding: 12, paddingBottom: 120})
       }>
-      <TextInput
-        style={styles.input}
+      <InputForm
         onChangeText={setPosition}
         value={position}
         placeholder="Profissão"
       />
-      <TextInput
-        style={styles.input}
+      <InputForm
         onChangeText={setCompany}
         value={company}
         placeholder="Empresa"
       />
-      <Select
-        selectedValue={service}
-        minWidth="200"
-        accessibilityLabel="Choose Service"
-        placeholder="Contrato"
-        _selectedItem={{
-          bg: 'blue.600',
-          color: 'white',
-        }}
-        mt={1}
-        onValueChange={itemValue => setService(itemValue)}>
-        <Select.Item label="CLT" value="ux" />
-        <Select.Item label="PJ" value="web" />
-        <Select.Item label="Freelancer" value="cross" />
-      </Select>
+
       <TextArea
         style={styles.textArea}
         onChangeText={setDescription}
@@ -132,7 +159,7 @@ export function Form() {
           bg: 'blueGray.700',
         }}
       />
-      <Text>Periodo</Text>
+      <Text>Periodo Inicial</Text>
       <Flex direction="row" mb="2.5" mt="1.5">
         <Select
           selectedValue={service}
@@ -144,19 +171,14 @@ export function Form() {
             color: 'white',
           }}
           mt={1}
-          onValueChange={itemValue => setService(itemValue)}>
-          <Select.Item label="2015" value="2015" />
-          <Select.Item label="2016" value="2016" />
-          <Select.Item label="2017" value="2017" />
-          <Select.Item label="2018" value="2018" />
-          <Select.Item label="2019" value="2019" />
-          <Select.Item label="2020" value="2020" />
-          <Select.Item label="2021" value="2021" />
-          <Select.Item label="2022" value="2022" />
+          onValueChange={itemValue => setDuration({begin: {ano: itemValue}})}>
+          {years.map((year, index) => (
+            <Select.Item key={index} label={year} value={year} />
+          ))}
         </Select>
         <Select
           selectedValue={service}
-          minWidth="200"
+          minWidth="130"
           accessibilityLabel="Choose Service"
           placeholder="Mês"
           _selectedItem={{
@@ -164,15 +186,62 @@ export function Form() {
             color: 'white',
           }}
           mt={1}
-          onValueChange={itemValue => setService(itemValue)}>
-          <Select.Item label="Janeiro" value="ux" />
-          <Select.Item label="Fevereiro" value="web" />
-          <Select.Item label="Março" value="cross" />
-          <Select.Item label="Abril" value="ui" />
-          <Select.Item label="Maio" value="backend" />
+          onValueChange={itemValue => setDuration({begin: {mes: itemValue}})}>
+          {months.map((month, index) => (
+            <Select.Item key={index} label={month} value={month} />
+          ))}
         </Select>
       </Flex>
-
+      <Text>Periodo Final - {duration.finish.ano}</Text>
+      <Flex direction="row" mb="2.5" mt="1.5">
+        <Select
+          selectedValue={duration.finish.ano}
+          minWidth="100"
+          accessibilityLabel="Choose Service"
+          placeholder="Ano"
+          _selectedItem={{
+            bg: 'blue.600',
+            color: 'white',
+          }}
+          mt={1}
+          onValueChange={itemValue => setDuration({finish: {ano: itemValue}})}>
+          {years.map((year, index) => (
+            <Select.Item key={index} label={year} value={year} />
+          ))}
+        </Select>
+        <Select
+          selectedValue={service}
+          minWidth="130"
+          accessibilityLabel="Choose Service"
+          placeholder="Mês"
+          _selectedItem={{
+            bg: 'blue.600',
+            color: 'white',
+          }}
+          mt={1}
+          onValueChange={itemValue => setDuration({finish: {mes: itemValue}})}>
+          {months.map((month, index) => (
+            <Select.Item key={index} label={month} value={month} />
+          ))}
+        </Select>
+        <Switch value={moment} onToggle={setMoment} size="sm" />
+      </Flex>
+      <Text>{contrat}</Text>
+      <Select
+        selectedValue={contrat}
+        minWidth="200"
+        accessibilityLabel="Choose Service"
+        placeholder="Contrato"
+        _selectedItem={{
+          bg: 'blue.600',
+          color: 'white',
+        }}
+        mt={1}
+        onValueChange={itemValue => setContrat(itemValue)}>
+        <Select.Item label="CLT" value="clt" />
+        <Select.Item label="PJ" value="pj" />
+        <Select.Item label="Freelancer" value="freela" />
+      </Select>
       <Divider
         my="4"
         _light={{
@@ -208,8 +277,7 @@ export function Form() {
       />
       <Text>Projetos</Text>
       <Container>
-        <TextInput
-          style={styles.input}
+        <InputForm
           onChangeText={setCompany}
           value={company}
           placeholder="Nome do projeto"
@@ -224,8 +292,7 @@ export function Form() {
         />
         <Text>Skills</Text>
         <View style={{padding: 10}}>
-          <TextInput
-            style={styles.button}
+          <InputForm
             placeholder="JavaScript, Css"
             onChangeText={newText => setText(newText)}
           />
@@ -248,8 +315,7 @@ export function Form() {
       />
       <Text>Promoções</Text>
       <Container>
-        <TextInput
-          style={styles.input}
+        <InputForm
           onChangeText={setCompany}
           value={company}
           placeholder="Novo cargo"
