@@ -43,15 +43,21 @@ export function Form() {
     },
   });
 
-  const [skills, setSkills] = React.useState(['']);
+  const [skills, setSkills] = React.useState('');
   const [text, setText] = React.useState('');
 
   const {navigate, goBack} = useNavigation();
   const {params} = useRoute();
   const toast = useToast();
 
+  // function includeSkills() {
+  //   skills.push(years)
+  // }
+
   const [service, setService] = React.useState('');
+
   const {id}: any = params || '';
+
   function fetchEditData(data: any) {
     setPosition(data.position);
     setDescription(data.description);
@@ -93,7 +99,9 @@ export function Form() {
 
   async function createExperience() {
     try {
-      await api.saveExperience(experienceData);
+      console.log(experienceData);
+
+      // await api.saveExperience(experienceData);
     } catch (error) {
       console.warn(error);
     }
@@ -162,7 +170,7 @@ export function Form() {
       <Text>Periodo Inicial</Text>
       <Flex direction="row" mb="2.5" mt="1.5">
         <Select
-          selectedValue={service}
+          selectedValue={duration.begin.ano}
           minWidth="100"
           accessibilityLabel="Choose Service"
           placeholder="Ano"
@@ -177,7 +185,7 @@ export function Form() {
           ))}
         </Select>
         <Select
-          selectedValue={service}
+          selectedValue={duration.begin.mes}
           minWidth="130"
           accessibilityLabel="Choose Service"
           placeholder="Mês"
@@ -192,7 +200,7 @@ export function Form() {
           ))}
         </Select>
       </Flex>
-      <Text>Periodo Final - {duration.finish.ano}</Text>
+      <Text>Periodo Final</Text>
       <Flex direction="row" mb="2.5" mt="1.5">
         <Select
           selectedValue={duration.finish.ano}
@@ -210,7 +218,7 @@ export function Form() {
           ))}
         </Select>
         <Select
-          selectedValue={service}
+          selectedValue={duration.finish.mes}
           minWidth="130"
           accessibilityLabel="Choose Service"
           placeholder="Mês"
@@ -251,16 +259,17 @@ export function Form() {
           bg: 'blueGray.700',
         }}
       />
-      <Text>Skills</Text>
+      <Text>Skills {skills} - No enter ele da um push na lista de Skills</Text>
 
       <View style={{padding: 10}}>
         <TextInput
           style={styles.button}
           placeholder="JavaScript, Css"
-          onChangeText={newText => setText(newText)}
+          onChangeText={newText => setSkills(newText)}
+          onKeyPress={newText => setSkills(newText)}
         />
         <Text style={{padding: 10, fontSize: 42}}>
-          {text
+          {skills
             .split(' ')
             .map(word => word)
             .join(' ')}
