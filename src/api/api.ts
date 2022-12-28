@@ -27,16 +27,17 @@ const api = {
     });
   },
   getExperiences: function () {
-    return fetch(`${baseUrl}/experience`, {
+     const response = fetch(`${baseUrl}/experience`, {
       method: 'GET',
       headers: {
         ...headerMain,
       },
     });
+    return response
   },
   saveExperience: function (formData: any) {
     if (formData.id) {
-      return fetch(`${baseUrl}/experience`, {
+      const response = fetch(`${baseUrl}/experience`, {
         method: 'POST',
         headers: {
           ...headerMain,
@@ -44,9 +45,10 @@ const api = {
         },
         body: JSON.stringify(formData),
       });
+      return response
     }
 
-    return fetch(`${baseUrl}/experience`, {
+    const response = fetch(`${baseUrl}/experience`, {
       method: 'POST',
       headers: {
         ...headerMain,
@@ -54,6 +56,7 @@ const api = {
       },
       body: JSON.stringify(formData),
     });
+    return response
   },
 };
 
