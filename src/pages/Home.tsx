@@ -19,7 +19,7 @@ export function Home() {
 
   React.useEffect(() => {
     fetchProfile();
-  }, [profileInfo]);
+  }, []);
 
   return (
     <Center h="95%">
